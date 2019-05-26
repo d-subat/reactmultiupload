@@ -1,31 +1,337 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Oxygen');
+
+:root {
+  --color1:  white;
+  --color2: #632C65;
+  --color3: #4B384C;
+  --color4:  #2da0ff;
+  --color5:   black;
+
+
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  margin: 0;
   min-height: 100vh;
-  display: flex;
+  display: grid;
+  place-content: center;
+  background: linear-gradient(to right top, #636aff, #5676ff, #4c82ff, #468cff, #4695ff, #2da0ff, #12aaff, #00b3ff, #00bffb, #00c9f2, #00d2e7, #3fdadb);
+  font-family: 'Oxygen', sans-serif;
+  /* fluid fonts*/
+  font-size: calc(12px + (22 - 12) * ((100vw - 300px) / (1600 - 300)));
+  background-size:100% 100%;
+  background-size:cover;
+  animation: 1s ease abloop infinite;
+}
+
+.App {
+  width:100%;
+  display:flex;
   flex-direction: column;
   align-items: center;
+  perspective: 100vmin;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0,0,0,0.25);
+  min-width:25em;
+  box-shadow: 0.15em 0.2em 0.2em 0 rgba(5, 5, 5,0.75);
+  flex: 1;
+  position:relative;
+  align-items: center;
+}
+ 
+
+.heading {
+  
+  background: var(--color5);
+  background: rgba(0,0,0,0.25);
+  color: var(--color1);
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.heading span {
+  padding: 0.5em;
+}
+
+.heading div {
+  background: var(--color1);
+  color:  var(--color5);
+  width: 4vmin;
+  height: 4vmin;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  margin: 0 0.5em 0 auto;
+  text-decoration: none;
+  cursor: pointer;
+}
+.view {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  flex:1;
+  height:100%;
+  
 }
 
-.App-link {
-  color: #61dafb;
+.pane {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  flex-direction: column;
+  margin: 1.5em;   
+  min-width:15em;         
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+
+
+.pane form {
+  width:100%;
+  min-height:8em;
+  border: 2px dashed  var(--color4);
+  border-radius: 0.5em;
+
+}
+.pane form label {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  background: rgba(0,0,0,0.25);
+  height:100%;
+  color: darkgrey;
+  width: 100%;
+  cursor: pointer;
+}
+
+.dragging {
+  animation: borderloop 1s infinite;
+}
+
+@keyframes borderloop {
+  0% {  
+    border-radius: 0.25em;
+     border: 2px dashed  var(--color4);}
+  50% {   
+    border-radius: 0.5em ;
+    border: 2px dotted  var(--color4);}
+}
+
+.message{
+  color:white;
+  font-weight: 900;
+  -webkit-text-stroke: #333788 1px;
+  padding:1em;
+}
+.btn {
+  cursor:pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index:3;
+  border:none;
+}
+.upload{
+  background: rgba(0,0,0,0.25);
+  
+  color:var(--color1);
+  margin-bottom:2em;
+  border:2px solid var(--color4);
+  border-radius: 0.5em;
+  padding:0.5em  1.5em;
+  transform: scale(0.25);
+  animation: scaleIn 0.1s ease both;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight:bold;
+}
+.upload--done{
+  color:var(--color1);
+  margin-bottom:2em;
+}
+
+.upload:hover, .upload:hover .icon-upload{
+  background:var(--color4);
+  color:var(--color5);
+  fill:var(--color5);
+}
+
+
+input[type="file"] {
+  display: none;
+  opacity: 0;
+}
+
+.outputView {
+  display:flex;
+  flex-direction: column;
+
+  align-items: center;
+ 
+  background:var(--color1);
+  background: rgba(50,50,50,0.75);
+  padding:0.5em;
+  width:90%;
+  backface-visibility: hidden;
+  transform-origin: 0% 0%;
+  transform:rotateX(-90deg);
+}
+.outputView.out {   
+  animation: slideIn 1s forwards; 
+}
+.outputView.done {   
+  animation: slideOut 1s both 2s; 
+ /* max-height:0;  */
+}
+
+@keyframes slideIn {
+  to {
+    transform:rotateX(0deg);
   }
+}
+
+@keyframes slideOut {
+  0% {
+    transform:rotateX(0deg);
+    height:100%;
+  }
+  100% {
+    
+    transform:rotateX(-180deg) ;
+    max-height:0;
+  }
+  
+}
+
+.blendIn {
+  opacity: 0;
+  animation: blend 0.1s ease forwards;
+}
+
+@keyframes blend {
+  to {
+
+    opacity: 1;    
+}
+}
+
+
+@keyframes scaleIn {
+  100% {
+    transform: scale(1);    
+}
+}
+ 
+
+.fileList {
+  display:grid;
+  grid-template-columns: 3em 1fr 4em 2em ;
+  align-items: center;
+  padding: 0 0.5em  0 0.5em ;
+  width: 100%;
+  height:3em;
+  border-bottom: 1px solid var(--color1);
+  box-shadow: inset 0  -1px 0 1px var(--color5);
+  background: var(--color4);
+  color:var(--color5);
+  position:relative;
+  font-size:0.7em;
+}
+ 
+.progressFile {
+  background:rgba(80, 18, 83, 0.5);
+  position:absolute;
+  width:0;
+  top:0;
+  left:0;
+  border:0;
+  height:3em;
+}
+ 
+.pop {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top:0;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 4;
+  width: 100%;
+}
+
+.dialog {
+  position: relative;
+  width: 75%;
+  max-height: 85%;
+  padding: 2em;
+  background: rgba(0,0,0,0.75);
+  color:  var(--color1);
+  border-radius: 0 1em 1em 1em;
+  overflow-y: auto;
+}
+
+.dialog button,
+.dialog h2 {
+  color: var(--color1);
+  background:  rgba(0,0,0,0.75);
+
+  font-weight: bold;
+  text-decoration: none;
+  top: 0;
+  right: 0;
+  position: absolute;
+  padding: 0.5em;
+  line-height: 0.5;
+}
+
+.dialog h2 {
+  left: 0;
+  margin: 0;
+}
+
+.icon-upload {
+  fill: var(--color1);
+  width: 2em;
+  height: 2em;
+}
+.icon-cloud {
+  fill: var(--color1);
+  width: 10vmin;
+}
+.icon-close {
+  fill: var(--color1);
+  width: 2em;
+  height: 2em;
+}
+.icon-done {
+  fill: var(--color1);
+  width: 2em;
+  height: 2em;
+}
+.icon-file {
+  fill: var(--color1);
+  width: 1em;
+  height: 1em;
+}
+.icon-process {
+  fill: var(--color1);
+  width: 2em;
+  height: 2em;
+  animation: test 1s infinite;  
+}
+@keyframes test {
   to {
     transform: rotate(360deg);
   }
