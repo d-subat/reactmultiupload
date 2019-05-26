@@ -134,7 +134,8 @@ class App extends Component {
     );
     request.open("POST", URL, true);
     const formData = new FormData();
-    //    formData.append('clientip', this.state.clientIp);
+    
+    
     console.log("file" + counter);
     formData.append("file", file, file.name);
 
@@ -233,6 +234,7 @@ class App extends Component {
               <span> React Multiple File Upload Progress </span>
               <div onClick={this.toggleModal}> ? </div>
             </div>
+            History: 0 files /  0mb
             <div className="view">
               <div className="pane">
                 <form
