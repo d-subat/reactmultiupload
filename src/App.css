@@ -81,6 +81,10 @@ body {
   
 }
 
+.history {
+  padding:0.5em;
+}
+
 .pane {
   display: flex;
   align-items: center;

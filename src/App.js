@@ -9,7 +9,8 @@ class App extends Component {
       drag: false,
       fileList: [],
       progress: [],
-      message: "Maximum 10 files / 5mb"
+      message: "Maximum 10 files / 5mb",
+      history: {files: 0, size: 0}
     };
     this.dropRef = React.createRef();
   }
@@ -234,7 +235,7 @@ class App extends Component {
               <span> React Multiple File Upload Progress </span>
               <div onClick={this.toggleModal}> ? </div>
             </div>
-            History: 0 files /  0mb
+            
             <div className="view">
               <div className="pane">
                 <form
@@ -257,6 +258,7 @@ class App extends Component {
                 </form>
               </div>
             </div>
+            <FileHistory history={this.state.history} />            
             <div className="message"> {message} </div>
             {fileList.length <= 0 ? (
               ""
@@ -289,6 +291,14 @@ class App extends Component {
   }
 }
 
+const FileHistory = (props) => {
+  console.log(props.history.files)
+  return (
+    <div className="history">
+    Uploaded: {props.history.files} files / {props.history.size} mb
+    </div>    
+  )
+}
 const previewFile = file => {
   const allowedExt = [".jpg", ".gif", ".png", ".svg"];
   const fileExt = file.name.match(/\.(\w)*/);
